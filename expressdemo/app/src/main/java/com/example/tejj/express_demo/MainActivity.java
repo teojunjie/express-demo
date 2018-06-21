@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Api.BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create()) //Here we are using the GsonConverterFactory to directly convert json data to object
+                .addConverterFactory(GsonConverterFactory.create()) //Here we are using the GsonConverterFactory to directly convert json data to object
                 .build();
 
         //creating the api interface
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         //making the call object
         //here we are using the api method that we created inside the api interface
 
-        Call<String> call = api.getUsers();
+        Call<List<User>> call = api.getUsers();
         Toast.makeText(getApplicationContext(),"Hello people",Toast.LENGTH_SHORT).show();
 
         //then finallly we are making the call using enqueue()
@@ -45,17 +45,24 @@ public class MainActivity extends AppCompatActivity {
         //if the request is successfull we will get the correct response and onResponse will be executed
         //if there is some error we will get inside the onFailure() method
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                String httpresponse = response.body();
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                List<User> users = response.body();
+                for(User user: users){
+                    Log.e(TAG,user.getName());
+                    Log.e(TAG,user.getEmail());
+                    Log.e(TAG,user.getBirthday());
+                    Log.e(TAG,user.getId());
+                    Log.e(TAG,user.getFriends().toString());
+                    Log.e(TAG,user.getV().toString());
 
+                }
                 Log.e(TAG,"YAY success");
-                Log.e(TAG,httpresponse);
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 Log.e(TAG,t.toString());
                 Toast.makeText(getApplicationContext(),"Failed to get data",Toast.LENGTH_SHORT).show();
             }

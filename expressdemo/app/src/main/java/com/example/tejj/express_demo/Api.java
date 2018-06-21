@@ -10,5 +10,5 @@ public interface Api {
     String BASE_URL = "https://express-demo-jj.herokuapp.com/";
 
     @GET("/")
-    Call<String> getUsers();
+    Call<List<User>> getUsers();
 }
