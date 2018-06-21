@@ -51,7 +51,7 @@ const courses = [
 app.get('/',(req,res)=> {
 
 	query.exec(function(err,docs){
-		res.send('Hello World bitches!!\nMy query : \n' + docs);
+		res.send('Hello World bitches!! This is damm cool\nMy query : \n' + docs);
 	});
 
 })
