@@ -49,7 +49,11 @@ const courses = [
 ]
 
 app.get('/',(req,res)=> {
-	res.send('Hello World bitches');
+
+	query.exec(function(err,docs){
+		res.send('Hello World bitches!!\nMy query : \n' + docs);
+	});
+
 })
 
 app.get('/api/courses',(req,res)=>{
