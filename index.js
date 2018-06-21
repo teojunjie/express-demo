@@ -2,6 +2,17 @@ const express = require('express');
 const app = express();
 const Joi = require('joi'); //class
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://teojunjie:12345teojj@ds263460.mlab.com:63460/express-demo-database');
+
+var db = mongoose.connection;
+db.on('error',console.error.bind(console,'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('Connected to database successfully');
+});
+
+
 app.use(express.json());
  
 const courses = [
