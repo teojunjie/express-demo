@@ -17,17 +17,28 @@ var userSchema = mongoose.Schema({
 	birthday:String,
 	email:String,
 	friends:Number
-});
+},{collection:'MyUsers'});
 
-var user = mongoose.model('user',userSchema);
+var user = mongoose.model('MyUsers',userSchema);
 
-var jj = new Kittent({name :'teojunjie',birthday:'14/03/1996',email:'teojunjie@gmail.com',friends:221});
+console.log('My schema ' + mongoose.model('MyUsers').schema.eachPath(function(path){
+	console.log(path);
+}));
+
+
+
+var jj = new user({name :'teojunjie',birthday:'14/03/1996',email:'teojunjie@gmail.com',friends:221});
 console.log(jj.name);
 
 jj.save(function(err,jj){
 	if(err) return console.error(err);
 	console.log('Successfully saved user');
 })
+
+var query = user.find({});
+console.log('My query : '+query.exec(function(err,docs){
+	console.log('My docs below :\n'+  docs +'\n\n' + 'Error : ' + err);
+}));
 
 app.use(express.json());
  
