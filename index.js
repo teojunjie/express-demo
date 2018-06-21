@@ -12,6 +12,22 @@ db.once('open', function() {
   console.log('Connected to database successfully');
 });
 
+var userSchema = mongoose.Schema({
+	name:String,
+	birthday:String,
+	email:String,
+	friends:Number
+});
+
+var user = mongoose.model('user',userSchema);
+
+var jj = new Kittent({name :'teojunjie',birthday:'14/03/1996',email:'teojunjie@gmail.com',friends:221});
+console.log(jj.name);
+
+jj.save(function(err,jj){
+	if(err) return console.error(err);
+	console.log('Successfully saved user');
+})
 
 app.use(express.json());
  
