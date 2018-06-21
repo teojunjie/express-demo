@@ -51,13 +51,17 @@ const courses = [
 app.get('/',(req,res)=> {
 
 	query.exec(function(err,docs){
-		res.send('Hello World bitches!! This is damm cool\nMy query : \n' + docs);
+//		res.send(docs);
+	    res.header("Content-Type",'application/json');
+	    res.send(JSON.stringify(docs, null, 4));
 	});
 
 })
 
 app.get('/api/courses',(req,res)=>{
-	res.send(courses);
+    res.header("Content-Type",'application/json');
+    res.send(JSON.stringify(courses, null, 4));
+    // res.send(courses);
 })
 
 app.get('/api/posts/:year/:month',(req,res)=>{
